@@ -5,6 +5,6 @@
   "password": { "$string": { "length":32}},
   "emailAddress": "$email",
   "phoneNumber": {"$phone":  {"country": "fr"}},
-  "geoLocation": "$point",
+  "geoLocation": {"$point": {"long_lim": [23.88, 33.14], "lat_lim": [48,51]}},
   "items": {"$array": {"of": "$objectid", "number": {"$integer": {"min": 0, "max": 5}}}}
 }

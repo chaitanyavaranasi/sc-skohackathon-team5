@@ -6,7 +6,7 @@
   "item": {
     "category": {"$choose": {"from": ["Expertise","Shelter", "Food or Beverage", "Merchandise",
       "Medical Supplies", "Transportation", "HotSpot"]}},
-    "name": {"$choose": {"from": ["Doctor", "Mechanic", "Blanket", "Water", "Food", "Gasoline", "WiFi"]}},
+    "name": {"$choose": {"from": ["Doctor", "Mechanic", "Blanket", "Water", "Food", "Gasoline", "WiFi", "Bandages"]}},
       "quantity": {"$integer": { "min": 0, "max": 25}},
     "needed": "$bool",
     "notes": "$sentence",
