@@ -23,6 +23,7 @@ import pandas as pd
 import googletrans
 from googletrans import Translator
 
+# translate
 def transl(lang, word):
     if(lang=="en"):
         english = word
@@ -59,8 +60,10 @@ def transl(lang, word):
     #print(f"english:{english}\tpolish:{polish}\trussian:{russian}\tukrainian:{ukrainian}")
     return english, polish, russian, ukrainian
 
+# update collection
 def update(inpu, engl, poli, russ, ukra):
     result = col.update_many(
+        # *** remove .capitalize when coll is updated
             {   "item.name": inpu.capitalize() },
             { 
                 "$set": { 
@@ -75,6 +78,7 @@ def update(inpu, engl, poli, russ, ukra):
     if result.modified_count>0:
         print(result.modified_count, "documents updated.")
 
+# find all distinct items
 allitems = col.distinct("item.name")
 print(allitems)
 
@@ -82,7 +86,7 @@ flag = True
 dictionary = {}
 
 import json
-
+# open existing json
 filename = "dictionary.json"
 with open(filename, 'w') as outfile:
             outfile.write('{"term":"translations"}')
@@ -118,7 +122,7 @@ while flag:
         for key, value in dictionary.items():
             print("###### " + key, ' : ', value)
 
-        with open(filename, 'a') as fp:
+        with open(filename, 'w') as fp:
             json.dump(dictionary, fp)
         # myquery = {"item.name": {"$eq" : input_item}}
         # new_values = {"$set":{
