@@ -7,10 +7,10 @@
 <link href='https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.css' rel='stylesheet' />
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
-        function submitItemRequest(){
+        function submitExpressItemRequest(){
           const form = document.getElementById('submit-item');
           console.log(form)
-          var data = JSON.stringify({
+          var readData = JSON.stringify({
               "collection": "items",
               "database": "zynadit",
               "dataSource": "Znaydit",
@@ -18,7 +18,41 @@
                   "_id": 1
               }
           });
-          /*var data = JSON.stringify({
+
+          var config = {
+              method: 'post',
+              url: 'https://localhost:3000/findOne',
+              headers: {
+                  'Content-Type': 'application/json',
+                  'Access-Control-Request-Headers': '*',
+                  'Access-Control-Allow-Origin': '*',
+              },
+              data : readData
+          };
+
+          axios(config)
+            .then(function (response) {
+                console.log(JSON.stringify(response.data));
+                console.log("Item successfully submitted")
+                //TODO: Redirect to Home Page
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+        }
+
+        function submitItemRequest(){
+          const form = document.getElementById('submit-item');
+          console.log(form)
+          var readData = JSON.stringify({
+              "collection": "items",
+              "database": "zynadit",
+              "dataSource": "Znaydit",
+              "projection": {
+                  "_id": 1
+              }
+          });
+          var postData = JSON.stringify({
             "collection": "items",
             "database": "zynadit",
             "dataSource": "Znaydit",
@@ -39,7 +73,7 @@
                 "coordinates": [form.elements['position_long'], form.elements['position_lat']]
               }
             }
-          })*/
+          })
 
           var config = {
               method: 'post',
@@ -52,7 +86,7 @@
                   "Cache-Control": "no-cache",
                   "Cookie": document.cookie
               },
-              data : data
+              data : readData
           };
 
           axios(config)
@@ -228,7 +262,7 @@ span.price {
 
 
         </div>
-        <input type="submit" onclick="submitItemRequest()" value="Add Item" class="btn">
+        <input type="submit" onclick="submitExpressItemRequest()" value="Add Item" class="btn">
         </form>
     </div>
     </div>
