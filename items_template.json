@@ -12,7 +12,7 @@
     "notes": "$sentence",
     "imageLink": "$url"
   },
-  "geoLocation": "$point",
+  "geoLocation": {"$point": {"long_lim": [23.88, 33.14], "lat_lim": [48,51]}},
   "translation": {
     "ukrainian": "ковдра",
     "russian": "одеяло",
