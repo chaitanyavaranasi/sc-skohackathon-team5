@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src='https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.js'></script>
+<link href='https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.css' rel='stylesheet' />
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+        function submitItemRequest(config){
+          const form = document.getElementById('submit-item');
+          console.log(form)
+          var data = JSON.stringify({
+            "collection": "items",
+            "database": "zynadit",
+            "dataSource": "Znaydit",
+            "document": {
+              "createdOn": Date.now(),
+              "claimed": false,
+              "confirmed": false,
+              "confirmedOn": "",
+              "item": {
+                "category": form.elements['items'],
+                "name": form.elements['name'],
+                "needed": "",
+                "notes": form.elements['notes'],
+                "imageLink": ""
+              },
+              "geoLocation": {
+                "type": "Point",
+                "coordinates": [position.long, position.lat]
+              }
+            }
+          })
+
+          var config = {
+              method: 'post',
+              url: 'https://data.mongodb-api.com/app/data-zbccb/endpoint/data/beta/action/insertOne',
+              headers: {
+                  'Content-Type': 'application/json',
+                  'Access-Control-Request-Headers': '*',
+                  'api-key': 'SxHIn5sT899cpLqZtEvQedn1sPe7buxFNPvvjR8K7dEvmpntk5ocvbJcpjvwsuWC'
+              },
+              data : data
+          };
+
+          axios(config)
+            .then(function (response) {
+                console.log(JSON.stringify(response.data));
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+        }
+
+        /*axios.post('/item', {
+            items: form.elements['item'],
+            quantity: form.elements['quantity'],
+            form.elements['name']
+        })
+        .then(function (response) {
+            console.log(response);
+        })
+        .catch(function (error) {
+            console.log(error);
+        });*/
+</script>
+<style>
+body {
+  font-family: Arial;
+  font-size: 17px;
+  padding: 8px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.row {
+  display: -ms-flexbox; /* IE10 */
+  display: flex;
+  -ms-flex-wrap: wrap; /* IE10 */
+  flex-wrap: wrap;
+  margin: 0 -16px;
+}
+
+.col-25 {
+  -ms-flex: 25%; /* IE10 */
+  flex: 25%;
+}
+
+.col-50 {
+  -ms-flex: 50%; /* IE10 */
+  flex: 50%;
+}
+
+.col-75 {
+  -ms-flex: 75%; /* IE10 */
+  flex: 75%;
+}
+
+.col-25,
+.col-50,
+.col-75 {
+  padding: 0 16px;
+}
+
+.container {
+  background-color: #f2f2f2;
+  padding: 5px 20px 15px 20px;
+  border: 1px solid lightgrey;
+  border-radius: 3px;
+}
+
+input[type=text] {
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+label {
+  margin-bottom: 10px;
+  display: block;
+}
+
+.icon-container {
+  margin-bottom: 20px;
+  padding: 7px 0;
+  font-size: 24px;
+}
+
+.btn {
+  background-color: #04AA6D;
+  color: white;
+  padding: 12px;
+  margin: 10px 0;
+  border: none;
+  width: 100%;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 17px;
+}
+
+.btn:hover {
+  background-color: #45a049;
+}
+
+a {
+  color: #2196F3;
+}
+
+hr {
+  border: 1px solid lightgrey;
+}
+
+span.price {
+  float: right;
+  color: grey;
+}
+
+/* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other (also change the direction - make the "cart" column go on top) */
+@media (max-width: 800px) {
+  .row {
+    flex-direction: column-reverse;
+  }
+  .col-25 {
+    margin-bottom: 20px;
+  }
+}
+</style>
+</head>
+<body>
+
+<h2>Add Item</h2>
+<div id='map' style='width: 400px; height: 300px;'></div>
+<script>
+    mapboxgl.accessToken = 'pk.eyJ1IjoiY2hhaW1vbmdvIiwiYSI6ImNsMHM2MHBkajBhOHMzanBuYmNrYzBibGoifQ.JL3gx45RgXe5ftjrRmNa8Q';
+    var map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/mapbox/streets-v11',
+        center: [12.550343, 55.665957],
+        zoom: 8
+    });
+
+    map.addControl(
+        new mapboxgl.GeolocateControl({
+            positionOptions: {
+                enableHighAccuracy: true
+            },
+            trackUserLocation: false,
+            showUserHeading: false
+        })
+    );
+
+    function addItem(post){ 
+
+    }
+</script>
+<div class="row">
+  <div class="col-75">
+    <div class="container">
+      <form id="submit-item">
+        <div class="row">
+          <div class="col-50">
+            <h3>Item Details</h3>
+            <label for="fname"> Category</label>
+            <select id="items" name="items">
+                <option value="Expertise">Expertise</option>
+                <option value="Shelter">Shelter</option>
+                <option value="Food or Beverage">Food or Beverage</option>
+                <option value="Merchandise">Merchandise</option>
+                <option value="Medical Supplies">Medical Supplies</option>
+                <option value="Transportation">Transportation</option>
+                <option value="Hotspot">Hotspot</option>
+            <select>
+            <label for="namelabel"> Item Name</label>
+            <input type="name" id="name" name="name" placeholder="Insulin">
+            <label for="notes"> Notes</label>
+            <input type="notes" id="notes" name="notes" placeholder="15 bottles of water">
+            <label for="long"> Longitude</label>
+            <input type="number" id="position_long" name="address" placeholder="31.1656">
+            <label for="lat"> Latitude</label>
+            <input type="number" id="position_lat" name="address" placeholder="48.3794">
+        </div>
+
+
+        </div>
+        <input type="submit" value="List Item" class="btn">
+        </form>
+    </div>
+    </div>
+
+</div>
+
+</body>
+</html>
