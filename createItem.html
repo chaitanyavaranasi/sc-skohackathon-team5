@@ -7,10 +7,18 @@
 <link href='https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.css' rel='stylesheet' />
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
-        function submitItemRequest(config){
+        function submitItemRequest(){
           const form = document.getElementById('submit-item');
           console.log(form)
           var data = JSON.stringify({
+              "collection": "items",
+              "database": "zynadit",
+              "dataSource": "Znaydit",
+              "projection": {
+                  "_id": 1
+              }
+          });
+          /*var data = JSON.stringify({
             "collection": "items",
             "database": "zynadit",
             "dataSource": "Znaydit",
@@ -28,18 +36,21 @@
               },
               "geoLocation": {
                 "type": "Point",
-                "coordinates": [position.long, position.lat]
+                "coordinates": [form.elements['position_long'], form.elements['position_lat']]
               }
             }
-          })
+          })*/
 
           var config = {
               method: 'post',
-              url: 'https://data.mongodb-api.com/app/data-zbccb/endpoint/data/beta/action/insertOne',
+              url: 'https://data.mongodb-api.com/app/data-zbccb/endpoint/data/beta/action/findOne',
               headers: {
                   'Content-Type': 'application/json',
                   'Access-Control-Request-Headers': '*',
-                  'api-key': 'SxHIn5sT899cpLqZtEvQedn1sPe7buxFNPvvjR8K7dEvmpntk5ocvbJcpjvwsuWC'
+                  'Access-Control-Allow-Origin': '*',
+                  'api-key': 'SxHIn5sT899cpLqZtEvQedn1sPe7buxFNPvvjR8K7dEvmpntk5ocvbJcpjvwsuWC',
+                  "Cache-Control": "no-cache",
+                  "Cookie": document.cookie
               },
               data : data
           };
@@ -47,23 +58,13 @@
           axios(config)
             .then(function (response) {
                 console.log(JSON.stringify(response.data));
+                console.log("Item successfully submitted")
+                //TODO: Redirect to Home Page
             })
             .catch(function (error) {
                 console.log(error);
             });
         }
-
-        /*axios.post('/item', {
-            items: form.elements['item'],
-            quantity: form.elements['quantity'],
-            form.elements['name']
-        })
-        .then(function (response) {
-            console.log(response);
-        })
-        .catch(function (error) {
-            console.log(error);
-        });*/
 </script>
 <style>
 body {
@@ -216,18 +217,18 @@ span.price {
                 <option value="Hotspot">Hotspot</option>
             <select>
             <label for="namelabel"> Item Name</label>
-            <input type="name" id="name" name="name" placeholder="Insulin">
+            <input type="text" id="name" name="name">
             <label for="notes"> Notes</label>
-            <input type="notes" id="notes" name="notes" placeholder="15 bottles of water">
+            <input type="text" id="notes" name="notes">
             <label for="long"> Longitude</label>
-            <input type="number" id="position_long" name="address" placeholder="31.1656">
+            <input type="text" id="position_long" name="address">
             <label for="lat"> Latitude</label>
-            <input type="number" id="position_lat" name="address" placeholder="48.3794">
+            <input type="text" id="position_lat" name="address">
         </div>
 
 
         </div>
-        <input type="submit" value="List Item" class="btn">
+        <input type="submit" onclick="submitItemRequest()" value="Add Item" class="btn">
         </form>
     </div>
     </div>
