@@ -1,0 +1,10 @@
+{
+  "createdOn": "$date",
+  "firstName": "$first",
+  "lastName": "$last",
+  "password": { "$string": { "length":32}},
+  "emailAddress": "$email",
+  "phoneNumber": {"$phone":  {"country": "fr"}},
+  "geoLocation": "$point",
+  "items": {"$array": {"of": "$objectid", "number": {"$integer": {"min": 0, "max": 5}}}}
+}

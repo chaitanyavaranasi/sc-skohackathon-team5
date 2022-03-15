@@ -1,0 +1,22 @@
+{
+  "createdOn": "$date",
+  "claimed": "$bool",
+  "confirmed": "$bool",
+  "confirmedOn": "$date",
+  "item": {
+    "category": {"$choose": {"from": ["Expertise","Shelter", "Food or Beverage", "Merchandise",
+      "Medical Supplies", "Transportation", "HotSpot"]}},
+    "name": {"$choose": {"from": ["Doctor", "Mechanic", "Blanket", "Water", "Food", "Gasoline", "WiFi"]}},
+      "quantity": {"$integer": { "min": 0, "max": 25}},
+    "needed": "$bool",
+    "notes": "$sentence",
+    "imageLink": "$url"
+  },
+  "geoLocation": "$point",
+  "translation": {
+    "ukrainian": "ковдра",
+    "russian": "одеяло",
+    "polish": "koc",
+    "german": "Decke"
+  }
+}
