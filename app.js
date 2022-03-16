@@ -2,24 +2,26 @@ const express = require('express')
 const axios = require('axios')
 const app = express()
 const port = 3000
-
 console.log("starting");
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
+
+// app.get('/', (req, res) => {
+//   res.send('Hello World!')
+// })
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
+
+app.use(express.static(`${__dirname}/public`));
 
 app.get('/findOne', (req, res) => {
   var data = JSON.stringify({
     "collection": "items",
     "database": "zynadit",
     "dataSource": "Znaydit",
-    "projection": {
-        "_id": 1
-    }
+    // "projection": {
+    //     "_id": 1
+    // }
   });
   var config = {
     method: 'post',
@@ -34,7 +36,8 @@ app.get('/findOne', (req, res) => {
 
   axios(config)
     .then(function (response) {
-        console.log(JSON.stringify(response.data));
+//        console.log(JSON.stringify(response.data));
+        res.send(JSON.stringify(response.data));
     })
     .catch(function (error) {
         console.log(error);
