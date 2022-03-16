@@ -84,7 +84,13 @@ Function that contains the server side logic for when an item is claimed, noting
 
 Unclaimed:
 
+![unclaimed](https://user-images.githubusercontent.com/16140051/158662182-41a1495c-6c76-400f-be90-3991a404ce6a.png)
+
+
 Claimed:
+
+![claimed](https://user-images.githubusercontent.com/16140051/158662212-306d368d-56d9-4271-8590-7780e05f38d6.png)
+
 
 Function:
 
