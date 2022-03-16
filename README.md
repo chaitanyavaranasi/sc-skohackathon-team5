@@ -67,7 +67,7 @@ Document insertion (i.e. someone posting an item / service that is available) tr
 - uses Google Translate to detect the language of the query term
 - provides translation into the other three supported languages
 
-![translation_image](https://ibb.co/y54WZJc)
+![translation-document](https://user-images.githubusercontent.com/16140051/158661508-a9df164f-bc8c-41f1-a91a-df8c7f954228.png)
 
 In the example above, if we search for cigarettes (red arrow), the Realm function inserts a new subdocument with the following translations. Notice the source 
 language field (blue arrow) was detected as English (en). 
@@ -113,6 +113,7 @@ exports = function (changeEvent) {
         }
       })
       .catch(err => console.error(`Failed to update the doc: ${err}`))
+
   }
 };
 ```
