@@ -3,30 +3,41 @@ Template
 
 # Details
 
-**Project** : _insert project title here_  
-**Team Number** : _insert team number here_  
-**Team Name** : _insert team name here_  
+**Project** : PROJECT ZNAYDIT
+**Team Number** : 5 
+**Team Name** : Anonymous  
 **Demonstration Video** : _Insert link to demonstration video_
 
 # Overview
 
-_Insert Executive Overview of your application/demonstration_
+Our application is named Proekt Znaydit; Ukrainian for Project Locate.  It's purpose is to power a "Craiglist-style" website where Ukrainians can quickly find (locate) critical goods and services (e.g. food, water, medicine, fuel, shelter, etc.) during the war with Russia.  It has a minimalist, simple, intuitive UI to allow non-technical individuals to easily search for, claim and retrieve goods over what are likely high latency, low bandwith internet connections.  The core idea is to quickly and easily connect people in need with those who are able to help them.
+
 
 # Justification
 
-_Please explain why you decided to build the application/demonstration for this project. What inspired you? What problems does it solve or how will it make Presales activities easier?_
-_What MongoDB competitive differentiators (developer productivity, resiliency, scalability, etc.) does this demonstration showcase?_
+While the war in Ukraine is 1000s of miles from many of us at MongoDB - although we do have co-workers who are much closer geographically to the conflict - there might seem to be little that we can do besides donate money and support our government's efforts to provide aid.  In times of armed conflict, civilian access to the most basic goods and services is among the first things to be disrupted.  We can leverage the power of the MongoDB Atlas platform - it's multi-cloud capabilities - by regionally distributing data closest to those who need access to it.
+
+Overall this project demonstrates how quickly a basic humanitarian application could be created and deployed in times of crisis by leveraging the power of the ADP (MongoDB Atlas, Atlas Search, etc.) along with 3rd party providers (MapBox API) to help solve a problem that unfolded very quickly continues to expand rapidly.  So developer productivity is a big benefit. Time to deploy is crucial.   Other differentiators that aren't specficially showcased in a demo - but are nonethless critical - are the scalability (perhaps tens of thousands of users daily) and resiliency (multi-cloud, multi-region capabilities built into Atlas).
 
 # Detailed Application Overview
 
-_Describe the architecture of your application and include a diagram._
-_List all the MongoDB components/products used in your demonstration._
-_Describe what you application does and how it works_
+Describe the architecture of your application and include a diagram.
+
+MongoDB Atlas, Atlas Search (Ukraninan language analyzer), Realm, Aggregation Framework
+
+The application has two interfaces (pages).  One page is a data entry form where those who have goods, services, etc. to offer others can post what they have and where they are located.  The geolocation of the poster is automatically captured and becomes part of the document.  The creation date is also timestamped and stored in the document.  A map is provided showing the location of both the requester and provider.  A communcation method between provider and requester (email, WhatsApp, SMS, etc.) is also captured and included.
+
+Future versions of the application would include directions overlaid on the map
 
 
 # Roles and Responsibilities
 
-_List all the team members and summarize the contributions each member made to this project_
+Paul Leury - architecture, documentation, data generation
+Matt Richmond - architecture, UI, documentation, Realm
+Chai Varanasi - MapBox, UI, aggregation
+Stephen Hwang - UI, data modeling, Realm
+Andrew Grzekowiak - data modeling, search, data generation
+Albert Wong - aggregation, search
 
 # Demonstration Script
 
