@@ -10,7 +10,7 @@ Template
 
 # Overview
 
-Our application is named Proekt Znaydit; Ukrainian for Project Locate.  It's purpose is to power a "Craiglist-style" website where Ukrainians can quickly find (locate) critical goods and services (e.g. food, water, medicine, fuel, shelter, etc.) during the war with Russia.  It has a minimalist, simple, intuitive UI to allow non-technical individuals to easily search for, claim and retrieve goods over what are likely high latency, low bandwith internet connections.  The core idea is to quickly and easily connect people in need with those who are able to help them.
+Our application is named Proekt Znaydit; Ukrainian for Project Locate.  It's purpose is to power a "Craiglist-style" website where Ukrainians can quickly find (locate) critical goods and services (e.g. food, water, medicine, fuel, clothing, shelter, etc.) during the war with Russia.  It has a minimalist, simple, intuitive UI to allow non-technical individuals to easily search for, claim and retrieve goods over what are likely high latency, low bandwith internet connections.  The core idea is to quickly and easily connect people in need with those who are able to help them.
 
 
 # Justification
@@ -26,7 +26,7 @@ Describe the architecture of your application and include a diagram.
 
 MongoDB Atlas, Atlas Search (Ukraninan language analyzer), Realm, Aggregation Framework
 
-The application has two interfaces (pages).  One page is a data entry form where those who have goods, services, etc. to offer others can post what they have and where they are located.  The geolocation of the poster is automatically captured and becomes part of the document.  The creation date is also timestamped and stored in the document.  A map is provided showing the location of both the requester and provider.  A communcation method between provider and requester (email, WhatsApp, SMS, etc.) is also captured and included.
+The application has two interfaces (pages).  One page is a data entry form where those who have goods, services, etc. (items) to offer others can post what they have and where they are located.  The geolocation of the poster is automatically captured and becomes part of the document.  The creation date is also timestamped and stored in the document.  A map is provided showing the location of both the requester and provider.  A communcation method between provider and requester (email, WhatsApp, SMS, etc.) is also captured and included to faciliate pickup of the requested (claimed) items.
 
 Future versions of the application would include directions overlaid on the map; the ability to offer other services (transportation, known safe evacuation corridors, search and rescue assitance, etc.)
 
