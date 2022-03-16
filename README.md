@@ -33,12 +33,12 @@ Future versions of the application would include directions overlaid on the map;
 
 # Roles and Responsibilities
 
-Paul Leury - architecture, documentation, data generation
-Matt Richmond - architecture, UI, documentation, Realm
-Chai Varanasi - MapBox, UI, aggregation
-Stephen Hwang - UI, data modeling, Realm
-Andrew Grzekowiak - data modeling, search, data generation
-Albert Wong - aggregation, search
+Paul Leury (architecture, documentation, data generation) 
+Matt Richmond (architecture, UI, documentation, Realm)
+Chai Varanasi  (architecture, MapBox, UI, aggregation, Realm)  
+Stephen Hwang  (architecture, UI, data modeling, Realm) 
+Andrew Grzekowiak  (architecture, data modeling, search, data generation)  
+Albert Wong (aggregation, search) 
 
 # Demonstration Script
 
