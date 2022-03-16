@@ -3,17 +3,16 @@ const axios = require('axios')
 const app = express()
 const port = 3000
 
+console.log("starting");
 app.get('/', (req, res) => {
   res.send('Hello World!')
 })
-https://runkit.com/
+
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
 
 app.get('/findOne', (req, res) => {
-  console.log(data)
-  var axios = require('axios');
   var data = JSON.stringify({
     "collection": "items",
     "database": "zynadit",
@@ -28,7 +27,7 @@ app.get('/findOne', (req, res) => {
     headers: {
         'Content-Type': 'application/json',
         'Access-Control-Request-Headers': '*',
-        'api-key': '<API_KEY>'
+        'api-key': 'SxHIn5sT899cpLqZtEvQedn1sPe7buxFNPvvjR8K7dEvmpntk5ocvbJcpjvwsuWC'
     },
     data : data
   };
@@ -41,3 +40,5 @@ app.get('/findOne', (req, res) => {
         console.log(error);
     });
 })
+
+console.log("ending");
