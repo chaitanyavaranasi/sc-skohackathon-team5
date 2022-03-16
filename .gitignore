@@ -1,3 +1,6 @@
 node_modules
 .idea/workspace.xml
 app.js.bak
+.vscode/launch.json
+package.json
+package-lock.json
