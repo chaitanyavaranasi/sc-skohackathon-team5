@@ -19,6 +19,7 @@ While the war in Ukraine is 1000s of miles from many of us at MongoDB - although
 
 Overall this project demonstrates how quickly a basic humanitarian application could be created and deployed in times of crisis.  By leveraging the power of the ADP (MongoDB Atlas, Atlas Search, Realme, etc.) along with 3rd party providers (MapBox API) we can quickly apply technology to help solve a problem that unfolded very quickly and continues to expand rapidly.  So developer productivity is a big benefit. Time to deploy is crucial.   Other differentiators that aren't specficially showcased in a demo - but are nonethless critical - are the scalability (perhaps tens of thousands of users daily) and resiliency (multi-cloud, multi-region capabilities built into Atlas).
 
+
 # Detailed Application Overview
 
 Describe the architecture of your application and include a diagram.
@@ -27,7 +28,7 @@ MongoDB Atlas, Atlas Search (Ukraninan language analyzer), Realm, Aggregation Fr
 
 The application has two interfaces (pages).  One page is a data entry form where those who have goods, services, etc. to offer others can post what they have and where they are located.  The geolocation of the poster is automatically captured and becomes part of the document.  The creation date is also timestamped and stored in the document.  A map is provided showing the location of both the requester and provider.  A communcation method between provider and requester (email, WhatsApp, SMS, etc.) is also captured and included.
 
-Future versions of the application would include directions overlaid on the map
+Future versions of the application would include directions overlaid on the map; the ability to offer other services (transportation, known safe evacuation corridors, search and rescue assitance, etc.)
 
 
 # Roles and Responsibilities
