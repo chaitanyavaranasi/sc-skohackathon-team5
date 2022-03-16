@@ -25,9 +25,11 @@ Overall this project demonstrates how quickly a basic humanitarian application c
 
 Describe the architecture of your application and include a diagram.
 
-MongoDB Atlas, Atlas Search (Ukraninan language analyzer), Realm, Aggregation Framework
+MongoDB Atlas, Atlas Search (Ukraninan language analyzer), Realm, Aggregation Framework, MapBox API, Google Translate API
 
-The application has two interfaces (pages).  One page is a data entry form where those who have goods, services, etc. (items) to offer others can post what they have and where they are located.  The geolocation of the poster is automatically captured and becomes part of the document.  The creation date is also timestamped and stored in the document.  A map is provided showing the location of both the requester and provider.  A communcation method between provider and requester (email, WhatsApp, SMS, etc.) is also captured and included to faciliate pickup of the requested (claimed) items.
+The application has two interfaces (pages).  One page is a data entry form where those who have goods, services, etc. (items) to offer others can post what they have and where they are located.  The geolocation of the poster is automatically captured and becomes part of the document.  The creation date is also timestamped and stored in the document.  A map is provided showing the location of both the requester and provider.  
+
+A communcation method between provider and requester (email, WhatsApp, SMS, etc.) is also captured and included to faciliate pickup of the requested (claimed) items.  We wanted everyone to have access to this tool, regardless of their native language.   We utilized the Google Translation API to translate donated items into four languages (English, Polish, Ukrainian, Russian).
 
 Future versions of the application would include directions overlaid on the map; the ability to offer other services (transportation, known safe evacuation corridors, search and rescue assitance, etc.)
 
@@ -57,6 +59,63 @@ _The demonstration script should provide all the information required for anothe
   ```bash
    mgeneratejs accounts_template.json -n 100 | mongoimport --uri "mongodb+srv://<userId>:<password>@znaydit.padcu.mongodb.net/zynadit" --collection accounts
   ```
+
+## Multi-language Support 
+
+Document insertion (i.e. someone posting an item / service that is available) triggers a Realm function which:
+
+- uses Google Translate to detect the language of the query term
+- provides translation into the other three supported languages
+
+![translation_image](https://ibb.co/y54WZJc)
+
+In the example above, if we search for cigarettes (red arrow), the Realm function inserts a new subdocument with the following translations. Notice the source 
+language field (blue arrow) was detected as English (en). 
+
+If we search again but with the Russian word for cigarettes (сигареты), the source language field is detected as Russian (ru)
+
+
+## Claiming an Item
+
+Claim Function
+
+
+Function that contains the server side logic for when an item is claimed, noting it has been “claimed” and the timestamp at which that occurred. There is also an inverse function to “unclaim” an item if claimed by mistake.
+
+Unclaimed:
+
+Claimed:
+
+Function:
+
+```
+
+exports = function (changeEvent) {
+  const docId = changeEvent.documentKey._id;
+  const fullDocument = changeEvent.fullDocument;
+  const collection = context.services.get("mongodb-atlas").db("locust").collection("item");
+
+  if (fullDocument.Claimed && !fullDocument.ConfirmedOn ) {
+    const query = { "_id": docId };
+    const update = {
+      "$set": {
+        "Confirmed": true,
+        "ConfirmedOn": new Date()
+      }
+    };
+    const options = { "upsert": false };
+
+    collection.updateOne(query, update, options)
+      .then(result => {
+        const { matchedCount, modifiedCount } = result;
+        if (matchedCount && modifiedCount) {
+          console.log(`Successfully updated the doc.`)
+        }
+      })
+      .catch(err => console.error(`Failed to update the doc: ${err}`))
+  }
+};
+```
 
 
 ##Todo
