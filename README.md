@@ -99,11 +99,11 @@ exports = async function(changeEvent) {
     const item = changeEvent.fullDocument.Item.Name;
     try {
       const query2 = {"q": item, "format": "text"};
-      const tmp = await axios.post('https://translation.googleapis.com/language/translate/v2/detect?key=AIzaSyABY4TiYT6AGTXajeLa7vZFgtDPsWb-vkc', query2);
+      const tmp = await axios.post('https://translation.googleapis.com/language/translate/v2/detect?key=[INSERT KEY]', query2);
       const detected_language = tmp.data.data.detections[0].pop().language;
 
       // translate item.name to other languages
-      const translate = "https://translation.googleapis.com/language/translate/v2?key=AIzaSyABY4TiYT6AGTXajeLa7vZFgtDPsWb-vkc";
+      const translate = "https://translation.googleapis.com/language/translate/v2?key=[INSERT KEY]";
       var english, polish, russian, ukrainian, e, p, r, u;
       if (detected_language == 'en'){
         english = item;
