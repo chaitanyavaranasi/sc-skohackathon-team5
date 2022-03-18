@@ -80,6 +80,109 @@ language field (blue arrow) was detected as English (en).
 
 If we search again but with the Russian word for cigarettes (сигареты), the source language field is detected as Russian (ru)
 
+Function:
+```
+exports = async function(changeEvent) {
+  // Access the _id of the changed document:
+  const docId = changeEvent.documentKey._id;
+
+  // Access the latest version of the changed document
+  // (with Full Document enabled for Insert, Update, and Replace operations):
+  const fullDocument = changeEvent.fullDocument;
+  const updateDescription = changeEvent.updateDescription;
+  
+  const axios = require('axios').default;
+  axios.defaults.headers.common = {
+      "Content-Type": "application/json"
+  };
+  if(changeEvent.fullDocument.Item.Name){
+    const item = changeEvent.fullDocument.Item.Name;
+    try {
+      const query2 = {"q": item, "format": "text"};
+      const tmp = await axios.post('https://translation.googleapis.com/language/translate/v2/detect?key=AIzaSyABY4TiYT6AGTXajeLa7vZFgtDPsWb-vkc', query2);
+      const detected_language = tmp.data.data.detections[0].pop().language;
+
+      // translate item.name to other languages
+      const translate = "https://translation.googleapis.com/language/translate/v2?key=AIzaSyABY4TiYT6AGTXajeLa7vZFgtDPsWb-vkc";
+      var english, polish, russian, ukrainian, e, p, r, u;
+      if (detected_language == 'en'){
+        english = item;
+        p = await axios.post(translate, {"q":item, "source": "en", "target":"pl", "format":"text" });
+        polish = p.data.data.translations[0].translatedText;
+        r = await axios.post(translate, {"q":item, "source": "en", "target":"ru", "format":"text" });
+        russian = r.data.data.translations[0].translatedText;
+        u = await axios.post(translate, {"q":item, "source": "en", "target":"uk", "format":"text" });
+        ukrainian = u.data.data.translations[0].translatedText;
+      } else if (detected_language == 'pl') {
+        e = await axios.post(translate, {"q":item, "source": "pl", "target":"en", "format":"text" });
+        english = e.data.data.translations[0].translatedText;
+        polish = item;
+        r = await axios.post(translate, {"q":item, "source": "pl", "target":"ru", "format":"text" });
+        russian = r.data.data.translations[0].translatedText;
+        u = await axios.post(translate, {"q":item, "source": "pl", "target":"uk", "format":"text" });
+        ukrainian = u.data.data.translations[0].translatedText;
+      } else if (detected_language == 'ru'){
+        e = await axios.post(translate, {"q":item, "source": "ru", "target":"en", "format":"text" });
+        english = e.data.data.translations[0].translatedText;
+        p = await axios.post(translate, {"q":item, "source": "ru", "target":"pl", "format":"text" });
+        polish = p.data.data.translations[0].translatedText;
+        russian = item;
+        u = await axios.post(translate, {"q":item, "source": "ru", "target":"uk", "format":"text" });
+        ukrainian = u.data.data.translations[0].translatedText;
+      } else if (detected_language == 'uk'){
+        e = await axios.post(translate, {"q":item, "source": "uk", "target":"en", "format":"text" });
+        english = e.data.data.translations[0].translatedText;
+        p = await axios.post(translate, {"q":item, "source": "uk", "target":"pl", "format":"text" });
+        polish = p.data.data.translations[0].translatedText;
+        r = await axios.post(translate, {"q":item, "source": "uk", "target":"ru", "format":"text" });
+        russian = r.data.data.translations[0].translatedText;
+        ukrainian = item;
+      }
+      const translations={"language_detected": detected_language, "english":english, "polish":polish, "russian": russian, "ukrainian": ukrainian};
+
+      const collection = context.services.get("mongodb-atlas").db("locust").collection("item");
+      collection.updateOne(
+        { "_id": docId  }, 
+        {
+          $set: {
+            "translated":1,
+            "translation.source_language":detected_language,
+            "translation.english":english,
+            "translation.polish":polish,
+            "translation.russian":russian,
+            "translation.ukrainian":ukrainian
+          }
+        },
+        { "upsert": true  })
+            //update document with new field using mql
+        }catch(e){
+          console.log('Wtf',e)
+        }
+      }
+
+    // See which fields were changed (if any):
+    // if (updateDescription) {
+    //   const updatedFields = updateDescription.updatedFields; // A document containing updated fields
+    // }
+
+    // See which fields were removed (if any):
+    // if (updateDescription) {
+    //   const removedFields = updateDescription.removedFields; // An array of removed fields
+    // }
+
+    // Functions run by Triggers are run as System users and have full access to Services, Functions, and MongoDB Data.
+
+    // Access a mongodb service:
+    // const collection = context.services.get("mongodb-atlas").db("zynadit").collection("items");
+    // const doc = collection.findOne({ name: "mongodb" });
+
+    // Note: In Atlas Triggers, the service name is defaulted to the cluster name.
+
+    // Call other named functions if they are defined in your application:
+    // const result = context.functions.execute("function_name", arg1, arg2);
+};
+
+```
 
 ## Claiming an Item
 
