@@ -159,27 +159,6 @@ exports = async function(changeEvent) {
           console.log('Wtf',e)
         }
       }
-
-    // See which fields were changed (if any):
-    // if (updateDescription) {
-    //   const updatedFields = updateDescription.updatedFields; // A document containing updated fields
-    // }
-
-    // See which fields were removed (if any):
-    // if (updateDescription) {
-    //   const removedFields = updateDescription.removedFields; // An array of removed fields
-    // }
-
-    // Functions run by Triggers are run as System users and have full access to Services, Functions, and MongoDB Data.
-
-    // Access a mongodb service:
-    // const collection = context.services.get("mongodb-atlas").db("zynadit").collection("items");
-    // const doc = collection.findOne({ name: "mongodb" });
-
-    // Note: In Atlas Triggers, the service name is defaulted to the cluster name.
-
-    // Call other named functions if they are defined in your application:
-    // const result = context.functions.execute("function_name", arg1, arg2);
 };
 
 ```
