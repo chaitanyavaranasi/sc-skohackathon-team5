@@ -13,7 +13,7 @@ Meeting Recording: https://mongodb.zoom.com/rec/share/jCeQ249lWgFXEZyAIvQGlqeW7P
 
 Access Passcode: @Y3alA7%
 
-**Link to tool**: https://mongodbteam5.retool.com/embedded/public/48b54d42-aa31-4aca-a54b-04d2988a5791
+**Link to tool**: https://mongodbteam5.retool.com/apps/d48e61ba-a6cd-11ec-86b2-eb5afa3537fc/project_znaydit
 
 # Overview
 
